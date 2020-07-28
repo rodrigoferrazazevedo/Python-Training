@@ -36,3 +36,6 @@ square = Square(12)
 print(square.area())
 print(square.get_geometric_type())
 square.plot(0.93, (74, 75))
+
+print("Method resolution order:")
+print(square.__class__.__mro__) #or Square.__mro__ or Square.mro()
