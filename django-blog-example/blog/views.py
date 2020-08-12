@@ -8,6 +8,7 @@ from django.core.mail import send_mail
 def post_share(request, post_id):
     post = get_object_or_404(Post, id=post_id, status='published')
     sent = False
+    
     if request.method == 'POST':
         form = EmailPostForm(request.POST)
         if form.is_valid():
