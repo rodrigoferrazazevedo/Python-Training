@@ -23,3 +23,26 @@ class UserSchema(Schema):
         return data_copy
 
 schema = UserSchema()
+
+def export(filename, users, overwite=True):
+    #Create a CSV file and populate with valid users
+    if not overwrite and os.path.isfile(filename):
+        raise IOError(f"'{filename}' already exists.")
+
+    valid_users = get_valid_users(users)
+    write_csv(filename, valid_users)
+
+def get_valid_users(users):
+    yield from filter(is_valid, users) #one at a time, generator
+
+def is_valid(user):
+    return not schema.validate(user)
+
+def write_csv(filename, users):
+    fieldnames = ['email', 'name', 'age', 'role']
+
+    with open(filename, 'x', newline='') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for user in users:
+            writer.writerow(user)
