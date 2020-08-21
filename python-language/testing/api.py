@@ -24,7 +24,7 @@ class UserSchema(Schema):
 
 schema = UserSchema()
 
-def export(filename, users, overwite=True):
+def export(filename, users, overwrite=True):
     #Create a CSV file and populate with valid users
     if not overwrite and os.path.isfile(filename):
         raise IOError(f"'{filename}' already exists.")
